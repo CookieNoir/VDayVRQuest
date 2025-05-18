@@ -11,4 +11,7 @@
       <meta-data android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" android:resource="@xml/antilatency_usb_filter" />
     </activity>
   </application>
+  <queries>
+    <package android:name="com.antilatency.antilatencyservice" />
+  </queries>
 </manifest>

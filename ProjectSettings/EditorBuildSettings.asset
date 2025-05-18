@@ -6,10 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main.unity
+    path: Assets/Project/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: a4c396d15e108424581e3b3ef1180deb, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 2e37a857b8e65ed4ab2703a5bd2b6be6, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 24f5f9a8babde7c4aadf048d886e0cf8, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: ebcbd47499558dc428fa6ac2253587ee, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 72e43b70b165ebf448e2173b8e646cba, type: 2}
