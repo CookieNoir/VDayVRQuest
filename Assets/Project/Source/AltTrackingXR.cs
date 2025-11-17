@@ -12,6 +12,10 @@ namespace CookieNoir.VDayXR
         public float MinimalAQualityToAlign = 0.075f;
         public float BQuality = 0.6f;
 
+        public bool UsePlacementFromService = false;
+        public Vector3 PlacementPosition;
+        public Vector3 PlacementRotation;
+
         private bool _lerpPosition;
         private bool _lerpRotation;
 
@@ -31,29 +35,32 @@ namespace CookieNoir.VDayXR
 
         protected override Pose GetPlacement()
         {
-            var result = Pose.identity;
-
-            using (var localStorage = Antilatency.SDK.StorageClient.GetLocalStorage())
+            if (UsePlacementFromService)
             {
-                if (localStorage == null)
+                var result = Pose.identity;
+                using (var localStorage = Antilatency.SDK.StorageClient.GetLocalStorage())
                 {
+                    if (localStorage == null)
+                    {
+                        return result;
+                    }
+
+                    var placementCode = localStorage.read("placement", "default");
+
+                    if (string.IsNullOrEmpty(placementCode))
+                    {
+                        Debug.LogError("Failed to get placement code");
+                        result = Pose.identity;
+                    }
+                    else
+                    {
+                        result = _trackingLibrary.createPlacement(placementCode);
+                    }
+
                     return result;
                 }
-
-                var placementCode = localStorage.read("placement", "default");
-
-                if (string.IsNullOrEmpty(placementCode))
-                {
-                    Debug.LogError("Failed to get placement code");
-                    result = Pose.identity;
-                }
-                else
-                {
-                    result = _trackingLibrary.createPlacement(placementCode);
-                }
-
-                return result;
             }
+            return new Pose(PlacementPosition, Quaternion.Euler(PlacementRotation));
         }
 
         protected virtual void OnFocusChanged(bool focus)
